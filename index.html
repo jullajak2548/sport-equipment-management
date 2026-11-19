@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ระบบคลังอุปกรณ์กีฬา | วิชาเอกพลศึกษา</title>
+<style>
+:root{--navy:#102b50;--blue:#1769aa;--accent:#1769aa;--sky:#eaf4ff;--ink:#17283f;--muted:#718096;--line:#e3eaf2;--bg:#f4f7fb;--white:#fff;--green:#159568;--amber:#c78317;--red:#d64d55;--shadow:0 12px 30px rgba(19,49,83,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,"Noto Sans Thai",Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;font-weight:700}.primary{background:var(--accent);color:white}.secondary{background:#eaf2fb;color:var(--navy)}.danger{background:#fff0f0;color:var(--red)}.success{background:#e9f8f1;color:var(--green)}.muted{color:var(--muted)}.small{font-size:12px}.shell{display:flex;min-height:100vh}.sidebar{width:250px;background:linear-gradient(180deg,#102b50,#143e6c);color:white;padding:24px 16px;flex-shrink:0}.brand{display:flex;gap:12px;align-items:center;padding:4px 8px 26px}.logo{width:42px;height:42px;border-radius:13px;background:#fff;color:var(--blue);display:grid;place-items:center;font-size:22px}.brand b{display:block;font-size:15px}.brand span{font-size:11px;color:#c4d7ed}.nav{display:grid;gap:7px}.nav button{color:#dce9f7;background:transparent;text-align:left;padding:12px;display:flex;gap:12px;align-items:center}.nav button.active,.nav button:hover{background:#ffffff20;color:white}.side-foot{position:sticky;top:calc(100vh - 75px);margin-top:35px;font-size:11px;color:#c4d7ed;padding:12px}.main{flex:1;min-width:0}.topbar{height:76px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px}.topbar h1{font-size:20px;margin:0}.user{display:flex;align-items:center;gap:10px;font-size:13px}.avatar{width:36px;height:36px;border-radius:50%;background:var(--sky);color:var(--blue);display:grid;place-items:center;font-weight:bold}.content{padding:26px 30px;max-width:1500px;margin:auto}.welcome{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px;gap:16px}.welcome h2{margin:0 0 5px;font-size:23px}.welcome p{margin:0;color:var(--muted);font-size:13px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}.stat,.panel{background:white;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.stat{padding:18px}.stat-top{display:flex;justify-content:space-between;color:var(--muted);font-size:13px}.stat-icon{width:38px;height:38px;background:var(--sky);color:var(--blue);border-radius:12px;display:grid;place-items:center;font-size:19px}.stat strong{display:block;font-size:28px;margin-top:13px;color:var(--navy)}.stat small{color:var(--muted)}.grid2{display:grid;grid-template-columns:1.35fr 1fr;gap:16px}.panel{padding:19px;margin-bottom:16px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.panel h3{font-size:16px;margin:0}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px;min-width:600px}th{text-align:left;color:var(--muted);font-weight:600;background:#f8fafc}td,th{padding:12px 10px;border-bottom:1px solid var(--line)}tr:last-child td{border-bottom:0}.pill{display:inline-block;padding:5px 9px;border-radius:20px;font-size:11px;font-weight:bold}.available{background:#e8f7f0;color:var(--green)}.borrowed{background:#fff5df;color:#a36a0d}.overdue{background:#ffeded;color:var(--red)}.repair{background:#eef1f5;color:#596779}.lost{background:#fce8e8;color:#b52f39}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.toolbar input,.toolbar select,.field input,.field select,.field textarea{border:1px solid #d8e1eb;border-radius:9px;padding:10px 12px;background:white;min-width:0}.toolbar input{flex:1;min-width:180px}.field{display:grid;gap:6px;margin-bottom:13px}.field label{font-size:12px;color:#53657a;font-weight:700}.field input,.field select,.field textarea{width:100%}.actions{display:flex;gap:6px;flex-wrap:wrap}.actions button{padding:7px 10px;font-size:11px}.view{display:none}.view.active{display:block}.notice{padding:12px 14px;border-radius:11px;background:#fff7e8;color:#94620f;font-size:12px;margin-bottom:15px}.empty{text-align:center;padding:30px;color:var(--muted)}.modal-back{position:fixed;inset:0;background:#0c1e35a6;display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.modal-back.show{display:flex}.modal{background:white;border-radius:18px;padding:22px;width:min(520px,100%);max-height:90vh;overflow:auto;box-shadow:0 20px 70px #00152d55}.modal h3{margin:0 0 18px}.modal-foot{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#0e2b50,#1769aa)}.login-card{background:white;padding:30px;border-radius:20px;width:min(420px,100%);box-shadow:0 25px 70px #00152d55}.login-card h2{margin:0 0 6px}.login-card p{margin:0 0 22px;color:var(--muted);font-size:13px}.demo{background:#f2f7fc;padding:12px;border-radius:10px;font-size:12px;line-height:1.8;margin-top:15px}.qr{width:150px;height:150px;object-fit:contain;border:1px solid var(--line);padding:6px;border-radius:8px}.toast{position:fixed;right:20px;bottom:20px;background:#102b50;color:white;padding:13px 18px;border-radius:11px;box-shadow:var(--shadow);display:none;z-index:50}.toast.show{display:block}.hidden{display:none!important}.footnote{font-size:11px;color:var(--muted);line-height:1.7;margin-top:14px}.brand-logo-img{width:42px;height:42px;object-fit:cover;border-radius:13px;background:#fff}.login-banner{width:100%;max-height:150px;object-fit:cover;border-radius:12px;margin-bottom:16px}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.preview-logo{width:76px;height:76px;object-fit:cover;border-radius:16px;border:1px solid var(--line);background:#f5f7fa}.inventory-counts{display:flex;gap:6px;flex-wrap:wrap}.count-tag{font-size:11px;padding:4px 7px;border-radius:7px;background:#f0f5fa}.count-tag.good{background:#e8f7f0;color:#137b55}.count-tag.warn{background:#fff5df;color:#98620a}.count-tag.bad{background:#fce8e8;color:#b52f39}
+@media(max-width:950px){.sidebar{width:210px}.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+@media(max-width:650px){.settings-grid{grid-template-columns:1fr}.shell{display:block}.sidebar{width:100%;padding:12px}.brand{padding:4px 8px 12px}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;padding:9px}.side-foot{display:none}.topbar{height:60px;padding:0 15px}.topbar h1{font-size:15px}.content{padding:18px 14px}.welcome{align-items:start;flex-direction:column}.cards{gap:9px}.stat{padding:13px}.stat strong{font-size:23px}.stat-top{font-size:11px}.user .role{display:none}}
+</style>
+</head>
+<body>
+<div id="loginScreen" class="login">
+ <div class="login-card">
+  <div class="brand" style="padding:0 0 20px;color:var(--navy)"><img class="brand-logo-img" id="loginLogo" src="" alt="โลโก้" onerror="this.style.display='none'"><div class="logo" id="loginLogoFallback">🏆</div><div><b>SPORT EQUIPMENT</b><span style="color:#718096">ระบบคลังอุปกรณ์กีฬา</span></div></div>
+  <img id="loginBanner" class="login-banner hidden" alt="ภาพส่วนหัว"><h2>เข้าสู่ระบบ</h2><p>ระบบจัดการยืม–คืนอุปกรณ์กีฬา วิชาเอกพลศึกษา</p>
+  <div class="field"><label>อีเมลมหาวิทยาลัย</label><input id="loginUser" type="email" placeholder="name@ksu.ac.th" autocomplete="username"></div>
+  <div class="field"><label>รหัสผ่าน</label><input id="loginPass" type="password" placeholder="รหัสผ่าน" autocomplete="current-password"></div>
+  <button class="primary" style="width:100%" onclick="login()">เข้าสู่ระบบ</button>
+  <button class="secondary" style="width:100%;margin-top:9px" onclick="toggleRegister(true)">สมัครสมาชิกใหม่</button>
+  <div id="registerPanel" class="hidden" style="margin-top:18px;border-top:1px solid var(--line);padding-top:16px">
+   <h3 style="margin:0 0 12px">สมัครสมาชิกระบบคลังอุปกรณ์กีฬา</h3>
+   <div class="field"><label>ชื่อ–นามสกุล</label><input id="regName" placeholder="ชื่อและนามสกุล"></div>
+   <div class="field"><label>อีเมลมหาวิทยาลัย (@ksu.ac.th)</label><input id="regEmail" type="email" placeholder="name@ksu.ac.th"></div>
+   <div class="field"><label>รหัสผ่าน (อย่างน้อย 8 ตัวอักษร)</label><input id="regPassword" type="password" minlength="8" placeholder="กำหนดรหัสผ่าน"></div>
+   <button class="primary" style="width:100%" onclick="register()">ส่งคำขอสมัครสมาชิก</button>
+   <button class="secondary" style="width:100%;margin-top:8px" onclick="toggleRegister(false)">กลับไปเข้าสู่ระบบ</button>
+   <p class="footnote">สมัครได้เฉพาะอีเมลมหาวิทยาลัย และต้องรอผู้ดูแลระบบอนุมัติก่อนยืมอุปกรณ์</p>
+  </div>
+  <div class="demo">เข้าใช้งานด้วยอีเมลมหาวิทยาลัย <b>@ksu.ac.th</b><br>บัญชีใหม่จะต้องได้รับการอนุมัติจากผู้ดูแลระบบก่อนใช้งาน</div>
+ </div>
+</div>
+<div id="app" class="shell hidden">
+ <aside class="sidebar">
+  <div class="brand"><img class="brand-logo-img" id="brandLogo" src="" alt="โลโก้" onerror="this.style.display='none'"><div class="logo" id="brandLogoFallback">🏆</div><div><b id="brandTitle">SPORT EQUIPMENT</b><span id="brandSubtitle">PE Inventory System</span></div></div>
+  <nav class="nav">
+   <button class="active" data-view="dashboard" onclick="showView('dashboard',this)">▦ ภาพรวมระบบ</button>
+   <button data-view="inventory" onclick="showView('inventory',this)">▣ คลังอุปกรณ์</button>
+   <button data-view="borrow" onclick="showView('borrow',this)">↗ ยืมอุปกรณ์</button>
+   <button data-view="returns" onclick="showView('returns',this)">↙ คืนอุปกรณ์</button>
+   <button data-view="history" onclick="showView('history',this)">◷ ประวัติการยืม–คืน</button>
+   <button data-view="reports" onclick="showView('reports',this)">⚑ รายงานสูญหาย/ชำรุด</button>
+   <button class="admin-only" data-view="members" onclick="showView('members',this)">♙ จัดการสมาชิก</button>
+   <button class="admin-only" data-view="settings" onclick="showView('settings',this)">⚙ ตั้งค่าระบบ</button>
+  </nav>
+  <div class="side-foot">ระบบคลังอุปกรณ์กีฬา<br>วิชาเอกพลศึกษา</div>
+ </aside>
+ <main class="main">
+  <header class="topbar"><h1 id="pageTitle">ภาพรวมระบบ</h1><div class="user"><div class="avatar" id="avatar">A</div><div><b id="userName">ผู้ดูแลระบบ</b><div class="muted small role" id="userRole">ADMIN</div></div><button class="secondary" onclick="logout()">ออกจากระบบ</button></div></header>
+  <div class="content">
+   <section id="dashboard" class="view active">
+    <div class="welcome"><div><h2>ภาพรวมคลังอุปกรณ์กีฬา</h2><p>ตรวจสอบสถานะอุปกรณ์และรายการยืม–คืนได้จากหน้านี้</p></div><button class="primary admin-only" onclick="showView('inventory')">＋ เพิ่มอุปกรณ์</button></div>
+    <div class="cards">
+     <div class="stat"><div class="stat-top"><span>อุปกรณ์ทั้งหมด (ชิ้น)</span><span class="stat-icon">▣</span></div><strong id="totalCount">0</strong><small>จำนวนในคลัง</small></div>
+     <div class="stat"><div class="stat-top"><span>พร้อมใช้งาน</span><span class="stat-icon">✓</span></div><strong id="availableCount">0</strong><small>สามารถยืมได้</small></div>
+     <div class="stat"><div class="stat-top"><span>กำลังถูกยืม</span><span class="stat-icon">↗</span></div><strong id="borrowedCount">0</strong><small>ยังไม่คืน</small></div>
+     <div class="stat"><div class="stat-top"><span>เกินกำหนด / สูญหาย</span><span class="stat-icon">!</span></div><strong id="alertCount">0</strong><small>ควรติดตาม</small></div>
+    </div>
+    <div class="grid2">
+     <div class="panel"><div class="panel-head"><h3>รายการยืมล่าสุด</h3><button class="secondary" onclick="showView('history')">ดูทั้งหมด</button></div><div class="table-wrap"><table><thead><tr><th>ผู้ยืม</th><th>อุปกรณ์</th><th>กำหนดคืน</th><th>สถานะ</th></tr></thead><tbody id="recentRows"></tbody></table></div></div>
+     <div class="panel"><div class="panel-head"><h3>รายการที่ต้องติดตาม</h3><span class="pill overdue">แจ้งเตือน</span></div><div id="alerts"></div></div>
+    </div>
+   </section>
+   <section id="inventory" class="view">
+    <div class="welcome"><div><h2>คลังอุปกรณ์กีฬา</h2><p>จัดการข้อมูลและ QR Code ประจำอุปกรณ์แต่ละรายการ</p></div><button class="primary admin-only" onclick="openItemModal()">＋ เพิ่มอุปกรณ์</button></div>
+    <div class="panel"><div class="toolbar"><input id="inventorySearch" placeholder="ค้นหาชื่ออุปกรณ์ / รหัส..." oninput="renderInventory()"><select id="inventoryFilter" onchange="renderInventory()"><option value="">ทุกสถานะ</option><option value="พร้อมใช้งาน">พร้อมใช้งาน</option><option value="กำลังถูกยืม">กำลังถูกยืม</option><option value="ชำรุด">ชำรุด</option><option value="สูญหาย">สูญหาย</option></select></div>
+     <div class="table-wrap"><table><thead><tr><th>รหัส</th><th>อุปกรณ์</th><th>ประเภท</th><th>จำนวนทั้งหมด / ใช้ได้ / ว่าง</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody id="inventoryRows"></tbody></table></div>
+    </div>
+   </section>
+   <section id="borrow" class="view">
+    <div class="welcome"><div><h2>ยืมอุปกรณ์กีฬา</h2><p>กรอกข้อมูลผู้ยืมและกำหนดวันคืนก่อนยืนยันรายการ</p></div></div>
+    <div class="panel" style="max-width:760px"><div class="notice">กรุณาตรวจสอบจำนวนและสภาพอุปกรณ์ก่อนนำออกจากคลังทุกครั้ง</div>
+     <div class="field"><label>ชื่อ–นามสกุลผู้ยืม *</label><input id="bName" placeholder="ระบุชื่อและนามสกุล"></div>
+     <div class="field"><label>รหัสนักศึกษา / รหัสบุคลากร *</label><input id="bCode" placeholder="ระบุรหัสประจำตัว"></div>
+     <div class="field"><label>เบอร์โทรศัพท์</label><input id="bPhone" placeholder="ระบุเบอร์โทรศัพท์"></div>
+     <div class="settings-grid"><div class="field"><label>สังกัด / หน่วยงาน</label><input id="bAffiliation" placeholder="เช่น นักศึกษา / บุคลากร"></div><div class="field"><label>คณะ *</label><input id="bFaculty" placeholder="ระบุคณะ"></div><div class="field"><label>สาขา / วิชาเอก *</label><input id="bMajor" placeholder="ระบุสาขา"></div><div class="field"><label>ชั้นปี *</label><select id="bYear"><option value="">เลือกชั้นปี</option><option>ปี 1</option><option>ปี 2</option><option>ปี 3</option><option>ปี 4</option><option>ปี 5</option><option>บุคลากร</option><option>อื่น ๆ</option></select></div></div>
+     <div class="field"><label>อุปกรณ์ที่ต้องการยืม *</label><select id="bItem"></select></div>
+     <div class="field"><label>จำนวนที่ยืม *</label><input id="bQty" type="number" min="1" value="1"></div>
+     <div class="field"><label>วันที่กำหนดคืน *</label><input id="bDue" type="date"></div>
+     <div class="field"><label>วัตถุประสงค์</label><textarea id="bPurpose" rows="2" placeholder="เช่น ใช้ในการเรียนการสอน / ฝึกซ้อมกีฬา"></textarea></div>
+     <button class="primary" onclick="submitBorrow()">ยืนยันการยืมอุปกรณ์</button>
+    </div>
+   </section>
+   <section id="returns" class="view">
+    <div class="welcome"><div><h2>อนุมัติคำขอและคืนอุปกรณ์</h2><p>ตรวจสอบคำขอยืมที่รออนุมัติ และบันทึกสภาพอุปกรณ์หลังรับคืน</p></div></div>
+    <div class="panel"><div class="panel-head"><h3>คำขอยืมที่รออนุมัติ</h3></div><div class="table-wrap"><table><thead><tr><th>ผู้ขอยืม</th><th>อุปกรณ์</th><th>จำนวน</th><th>กำหนดคืน</th><th>วัตถุประสงค์</th><th>ดำเนินการ</th></tr></thead><tbody id="pendingRows"></tbody></table></div></div>
+    <div class="panel"><div class="panel-head"><h3>รายการที่กำลังถูกยืม / รับคืน</h3></div><div class="toolbar"><input id="returnSearch" placeholder="ค้นหาชื่อผู้ยืม / รหัส / อุปกรณ์..." oninput="renderReturns()"></div><div class="table-wrap"><table><thead><tr><th>ผู้ยืม</th><th>อุปกรณ์</th><th>จำนวน</th><th>กำหนดคืน</th><th>สถานะ</th><th>ดำเนินการ</th></tr></thead><tbody id="returnRows"></tbody></table></div></div>
+   </section>
+   <section id="history" class="view">
+    <div class="welcome"><div><h2>ประวัติการยืม–คืน</h2><p>ตรวจสอบย้อนหลังว่าใครยืมอุปกรณ์ใด เมื่อใด และคืนแล้วหรือยัง</p></div><button class="secondary" onclick="exportCSV()">ดาวน์โหลด CSV</button></div>
+    <div class="panel"><div class="toolbar"><input id="historySearch" placeholder="ค้นหาชื่อ / รหัส / อุปกรณ์..." oninput="renderHistory()"></div><div class="table-wrap"><table><thead><tr><th>วันที่ยืม</th><th>ผู้ยืม / รหัส</th><th>สังกัด / คณะ / สาขา / ชั้นปี</th><th>อุปกรณ์</th><th>จำนวน</th><th>กำหนดคืน</th><th>วันที่คืน</th><th>สถานะ</th></tr></thead><tbody id="historyRows"></tbody></table></div></div>
+   </section>
+   <section id="reports" class="view">
+    <div class="welcome"><div><h2>รายงานสูญหาย / ชำรุด</h2><p>บันทึกเหตุการณ์และตรวจสอบรายการที่ต้องดำเนินการ</p></div></div>
+    <div class="panel"><div class="panel-head"><h3>บันทึกเหตุการณ์</h3></div><div class="field"><label>อุปกรณ์</label><select id="rItem"></select></div><div class="field"><label>ประเภทเหตุการณ์</label><select id="rType"><option>สูญหาย</option><option>ชำรุด</option></select></div><div class="field"><label>รายละเอียด</label><textarea id="rDetail" rows="2" placeholder="ระบุรายละเอียด / สาเหตุ / ผู้แจ้ง"></textarea></div><button class="primary" onclick="submitReport()">ส่งรายงาน</button><div class="footnote">การบันทึกสถานะสูญหายหรือชำรุดจะปรับจำนวนพร้อมใช้งานของอุปกรณ์ตามรายการที่เลือก</div></div>
+    <div class="panel"><div class="panel-head"><h3>รายการเหตุการณ์</h3></div><div class="table-wrap"><table><thead><tr><th>วันที่</th><th>อุปกรณ์</th><th>ประเภท</th><th>รายละเอียด</th><th>ผู้บันทึก</th></tr></thead><tbody id="reportRows"></tbody></table></div></div>
+   </section>
+    <section id="members" class="view">
+     <div class="welcome"><div><h2>จัดการสมาชิก</h2><p>ตรวจสอบและอนุมัติบัญชีนักศึกษา/บุคลากรที่ใช้อีเมลมหาวิทยาลัย</p></div></div>
+     <div class="panel"><div class="toolbar"><input id="memberSearch" placeholder="ค้นหาชื่อหรืออีเมล..." oninput="renderMembers()"><select id="memberFilter" onchange="renderMembers()"><option value="">ทุกสถานะ</option><option value="pending">รออนุมัติ</option><option value="approved">อนุมัติแล้ว</option><option value="rejected">ปฏิเสธ</option><option value="suspended">ระงับ</option></select></div>
+      <div class="table-wrap"><table><thead><tr><th>ชื่อสมาชิก</th><th>อีเมล</th><th>สิทธิ์</th><th>สถานะ</th><th>วันที่สมัคร</th><th>จัดการ</th></tr></thead><tbody id="memberRows"></tbody></table></div>
+     </div>
+    </section>
+   <section id="settings" class="view">
+    <div class="welcome"><div><h2>ตั้งค่าระบบ</h2><p>แก้ไขชื่อเว็บไซต์และสำรองข้อมูลได้จากหน้านี้ โดยไม่ต้องแก้โค้ด</p></div></div>
+    <div class="panel" style="max-width:760px">
+     <div class="panel-head"><h3>ข้อมูลเว็บไซต์</h3><span class="pill available">ผู้ดูแลระบบ</span></div>
+     <div class="field"><label>ชื่อระบบ / ชื่อหน่วยงาน</label><input id="settingTitle" placeholder="ระบบคลังอุปกรณ์กีฬา วิชาเอกพลศึกษา"></div>
+     <div class="field"><label>ข้อความรองใต้ชื่อระบบ</label><input id="settingSubtitle" placeholder="วิชาเอกพลศึกษา คณะศึกษาศาสตร์และนวัตกรรมการศึกษา"></div>
+     <div class="field"><label>ชื่อผู้ดูแลที่แสดงบนเว็บไซต์</label><input id="settingAdmin" placeholder="ผู้ดูแลระบบ"></div>
+     <button class="primary" onclick="saveSettings()">บันทึกการตั้งค่า</button>
+    </div>
+    <div class="panel" style="max-width:900px">
+     <div class="panel-head"><h3>ปรับแต่งหน้าตาเว็บไซต์</h3><span class="pill available">แก้ไขได้เอง</span></div>
+     <div class="settings-grid">
+      <div><div class="field"><label>โลโก้เว็บไซต์ (PNG / JPG)</label><input id="settingLogoFile" type="file" accept="image/png,image/jpeg,image/webp" onchange="previewSettingImage(event,'logo')"><img id="settingLogoPreview" class="preview-logo" alt="ตัวอย่างโลโก้"><button class="secondary small" type="button" onclick="clearSettingImage('logo')">ลบโลโก้</button></div></div>
+      <div><div class="field"><label>ภาพส่วนหัวหน้าเข้าสู่ระบบ</label><input id="settingBannerFile" type="file" accept="image/png,image/jpeg,image/webp" onchange="previewSettingImage(event,'banner')"><img id="settingBannerPreview" class="login-banner" alt="ตัวอย่างภาพส่วนหัว"><button class="secondary small" type="button" onclick="clearSettingImage('banner')">ลบภาพส่วนหัว</button></div></div>
+      <div class="field"><label>สีหลักของเว็บไซต์</label><input id="settingColor" type="color" value="#1769aa" style="height:44px;padding:4px"></div>
+      <div class="field"><label>ชื่อผู้ติดต่อ / ผู้รับผิดชอบ</label><input id="settingContact" placeholder="เช่น เจ้าหน้าที่คลังอุปกรณ์กีฬา"></div>
+      <div class="field"><label>เบอร์โทรศัพท์ติดต่อ</label><input id="settingPhone" placeholder="ระบุเบอร์โทรศัพท์"></div>
+      <div class="field"><label>สถานที่จัดเก็บอุปกรณ์</label><input id="settingLocation" placeholder="เช่น ห้องเก็บอุปกรณ์กีฬา อาคาร... "></div>
+      <div class="field" style="grid-column:1/-1"><label>ข้อความต้อนรับ / คำแนะนำหน้าเข้าสู่ระบบ</label><textarea id="settingWelcome" rows="2" placeholder="กรุณาลงชื่อเข้าใช้ก่อนยืมอุปกรณ์กีฬา"></textarea></div>
+      <div class="field" style="grid-column:1/-1"><label>ข้อความท้ายเว็บไซต์</label><input id="settingFooter" placeholder="เช่น วิชาเอกพลศึกษา คณะศึกษาศาสตร์และนวัตกรรมการศึกษา"></div>
+     </div>
+     <button class="primary" onclick="saveAppearanceSettings()">บันทึกการปรับแต่งเว็บไซต์</button>
+     <div class="footnote">การตั้งค่าข้อความและสีหลักบันทึกไว้ในฐานข้อมูลกลาง ส่วนโลโก้/ภาพส่วนหัวในรุ่นนี้แสดงเฉพาะเบราว์เซอร์ที่อัปโหลด</div>
+    </div>
+    <div class="panel" style="max-width:760px">
+     <div class="panel-head"><h3>สำรองและกู้คืนข้อมูล</h3></div>
+     <p class="small muted">ดาวน์โหลดข้อมูลจากฐานข้อมูลกลางเก็บไว้เป็นไฟล์สำรอง</p>
+     <div class="actions"><button class="secondary" onclick="backupData()">⬇ ดาวน์โหลดไฟล์สำรอง</button><label class="secondary" style="display:inline-block;padding:9px 12px;border-radius:10px;cursor:pointer">⬆ นำเข้าไฟล์สำรอง (ยังไม่เปิดใช้)</label></div>
+     <div class="notice" style="margin-top:14px">ระบบสำรองข้อมูลจะดาวน์โหลดข้อมูลจาก Supabase โดยตรง การกู้คืนข้อมูลต้องดำเนินการโดยผู้ดูแลระบบ</div>
+    </div>
+   </section>
+  </div>
+ </main>
+</div>
+<div id="modalBack" class="modal-back"><div class="modal" id="modal"></div></div><div class="toast" id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL='https://mdmutzcwwqbgpfkunphe.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_4b1WTGnRLNaZ4Z2w0S2fPw_gX2EEnBO';
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+let db={settings:{},items:[],loans:[],reports:[],members:[]};
+let currentUser=null, currentProfile=null, role='user', pendingLogo=null,pendingBanner=null;
+const seedSettings={title:'ระบบคลังอุปกรณ์กีฬา วิชาเอกพลศึกษา',subtitle:'PE Inventory System',admin:'ผู้ดูแลระบบ',logo:'',banner:'',color:'#1769aa',contact:'',phone:'',location:'',welcome:'ระบบจัดการยืม–คืนอุปกรณ์กีฬา วิชาเอกพลศึกษา',footer:'วิชาเอกพลศึกษา'};
+function dateNow(){return new Date().toLocaleDateString('en-CA')}
+function fmt(d){if(!d)return '-';let x=new Date(d+'T00:00:00');return x.toLocaleDateString('th-TH',{year:'numeric',month:'short',day:'numeric'})}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function toast(s){let t=document.getElementById('toast');t.textContent=s;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200)}
+function toggleRegister(show){document.getElementById('registerPanel').classList.toggle('hidden',!show)}
+async function register(){
+ const full_name=regName.value.trim(),email=regEmail.value.trim().toLowerCase(),password=regPassword.value;
+ if(!full_name||!email||!password)return toast('กรุณากรอกข้อมูลให้ครบ');
+ if(!/^[^@]+@ksu\.ac\.th$/.test(email))return toast('ต้องใช้อีเมลมหาวิทยาลัย @ksu.ac.th เท่านั้น');
+ if(password.length<8)return toast('รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร');
+ const {error}=await supabaseClient.auth.signUp({email,password,options:{data:{full_name}}});
+ if(error)return toast(error.message);
+ toggleRegister(false);toast('ส่งคำขอสมัครแล้ว กรุณาตรวจสอบอีเมล และรอ Admin อนุมัติ');
+}
+async function login(){
+ const email=loginUser.value.trim().toLowerCase(),password=loginPass.value;
+ if(!email||!password)return toast('กรุณากรอกอีเมลและรหัสผ่าน');
+ if(!/^[^@]+@ksu\.ac\.th$/.test(email))return toast('ระบบนี้อนุญาตเฉพาะอีเมล @ksu.ac.th');
+ const {error}=await supabaseClient.auth.signInWithPassword({email,password});
+ if(error)return toast('เข้าสู่ระบบไม่สำเร็จ: '+error.message);
+ await handleSession();
+}
+async function handleSession(){
+ const {data:{session}}=await supabaseClient.auth.getSession();
+ if(!session){showLogin();return}
+ currentUser=session.user;
+ const {data:profile,error}=await supabaseClient.from('profiles').select('*').eq('id',currentUser.id).single();
+ if(error||!profile){toast('ไม่พบข้อมูลสมาชิก กรุณาติดต่อผู้ดูแลระบบ');await supabaseClient.auth.signOut();showLogin();return}
+ currentProfile=profile;role=profile.role||'user';
+ if(profile.approval_status!=='approved'){
+   document.getElementById('loginScreen').classList.remove('hidden');document.getElementById('app').classList.add('hidden');
+   let msg=profile.approval_status==='rejected'?'บัญชีของคุณไม่ได้รับอนุมัติ กรุณาติดต่อผู้ดูแลระบบ':profile.approval_status==='suspended'?'บัญชีของคุณถูกระงับการใช้งาน':'บัญชีของคุณอยู่ระหว่างรอ Admin อนุมัติ';
+   await supabaseClient.auth.signOut();showLogin();toast(msg);return;
+ }
+ document.getElementById('loginScreen').classList.add('hidden');document.getElementById('app').classList.remove('hidden');
+ document.getElementById('userName').textContent=profile.full_name||profile.email;document.getElementById('userRole').textContent=role==='admin'?'ADMIN':'MEMBER';document.getElementById('avatar').textContent=(profile.full_name||profile.email||'U').slice(0,1).toUpperCase();
+ document.querySelectorAll('.admin-only').forEach(x=>x.classList.toggle('hidden',role!=='admin'));
+ await loadData();
+}
+function showLogin(){currentUser=null;currentProfile=null;role='user';document.getElementById('app').classList.add('hidden');document.getElementById('loginScreen').classList.remove('hidden')}
+async function logout(){await supabaseClient.auth.signOut();showLogin()}
+supabaseClient.auth.onAuthStateChange((_event,session)=>{if(session){setTimeout(()=>handleSession(),0)}else{showLogin()}});
+async function loadData(){
+ const [itemsRes,loansRes,reportsRes,settingsRes]=await Promise.all([
+  supabaseClient.from('equipment_items').select('*').eq('is_active',true).order('asset_code'),
+  supabaseClient.from('borrow_requests').select('*').order('created_at',{ascending:false}),
+  supabaseClient.from('equipment_reports').select('*').order('created_at',{ascending:false}),
+  role==='admin'?supabaseClient.from('system_settings').select('*').eq('key','app_settings').maybeSingle():Promise.resolve({data:null,error:null})
+ ]);
+ for(const r of [itemsRes,loansRes,reportsRes,settingsRes])if(r.error)console.error(r.error);
+ db.items=(itemsRes.data||[]).map(i=>({dbId:i.id,id:i.asset_code||i.id,name:i.name,category:i.category,total:i.total_quantity,available:i.available_quantity,damaged:i.damaged_quantity,lost:i.lost_quantity,unit:i.unit}));
+ const reqs=loansRes.data||[];
+ let itemRows=[];
+ if(reqs.length){const ids=reqs.map(x=>x.id);const ir=await supabaseClient.from('borrow_request_items').select('*').in('request_id',ids);if(ir.error)console.error(ir.error);itemRows=ir.data||[];}
+ db.loans=itemRows.map(it=>{const req=reqs.find(x=>x.id===it.request_id)||{};const item=db.items.find(x=>x.dbId===it.equipment_id)||{};const returned=it.returned_good+it.returned_damaged+it.returned_lost>=it.quantity;return {id:req.id,itemRowId:it.id,itemId:item.id||it.equipment_id,itemDbId:it.equipment_id,itemName:item.name||'อุปกรณ์',qty:it.quantity,name:req.borrower_name||currentProfile?.full_name||'',code:req.borrower_code||'',phone:req.borrower_phone||'',affiliation:req.affiliation||'',faculty:req.faculty||'',major:req.major||'',year:req.study_year||'',due:req.expected_return_date,created:(req.created_at||'').slice(0,10),returned:req.status==='returned'||returned,returnDate:returned?(req.updated_at||'').slice(0,10):'',status:req.status,purpose:req.purpose||'',condition:it.return_note||''};});
+ db.reports=(reportsRes.data||[]).map(r=>({id:r.id,date:(r.created_at||'').slice(0,10),item:db.items.find(i=>i.dbId===r.equipment_id)?.name||'ไม่ระบุ',type:r.report_type==='lost'?'สูญหาย':r.report_type==='damaged'?'ชำรุด':'อื่น ๆ',detail:r.details,by:r.user_id===currentUser.id?(currentProfile.full_name||currentProfile.email):'สมาชิก',status:r.status}));
+ db.settings={...seedSettings,...(settingsRes.data?.value||{})};applySettings();
+ if(role==='admin')await loadMembers();
+ refresh();
+}
+async function loadMembers(){const {data,error}=await supabaseClient.from('profiles').select('*').order('created_at',{ascending:false});if(error){console.error(error);return}db.members=data||[];renderMembers()}
+function applySettings(){let st=db.settings||seedSettings;document.title=st.title||'ระบบคลังอุปกรณ์กีฬา';let brand=document.getElementById('brandTitle'),sub=document.getElementById('brandSubtitle');if(brand)brand.textContent=st.title||'SPORT EQUIPMENT';if(sub)sub.textContent=st.subtitle||'PE Inventory System';let loginP=document.querySelector('#loginScreen .login-card p');if(loginP)loginP.textContent=st.welcome||('ระบบจัดการยืม–คืนอุปกรณ์กีฬา '+(st.subtitle||'วิชาเอกพลศึกษา'));document.documentElement.style.setProperty('--accent',st.color||'#1769aa');[['brandLogo','brandLogoFallback'],['loginLogo','loginLogoFallback']].forEach(([imgId,fbId])=>{let img=document.getElementById(imgId),fb=document.getElementById(fbId);if(img&&st.logo){img.src=st.logo;img.style.display='block';if(fb)fb.style.display='none'}else if(img){img.removeAttribute('src');img.style.display='none';if(fb)fb.style.display='grid'}});let banner=document.getElementById('loginBanner');if(banner){if(st.banner){banner.src=st.banner;banner.classList.remove('hidden')}else{banner.removeAttribute('src');banner.classList.add('hidden')}}let foot=document.querySelector('.side-foot');if(foot)foot.innerHTML=esc(st.footer||'ระบบคลังอุปกรณ์กีฬา')+'<br>'+esc(st.location||'วิชาเอกพลศึกษา')}
+function fillSettings(){let st=db.settings||{};settingTitle.value=st.title||'';settingSubtitle.value=st.subtitle||'';settingAdmin.value=st.admin||'ผู้ดูแลระบบ';settingColor.value=st.color||'#1769aa';settingContact.value=st.contact||'';settingPhone.value=st.phone||'';settingLocation.value=st.location||'';settingWelcome.value=st.welcome||'';settingFooter.value=st.footer||'';settingLogoPreview.src=st.logo||'';settingBannerPreview.src=st.banner||'';settingLogoPreview.style.display=st.logo?'block':'none';settingBannerPreview.style.display=st.banner?'block':'none'}
+async function saveSettings(){if(role!=='admin')return toast('เฉพาะผู้ดูแลระบบเท่านั้น');let title=settingTitle.value.trim(),subtitle=settingSubtitle.value.trim(),admin=settingAdmin.value.trim();if(!title||!admin)return toast('กรุณากรอกชื่อระบบและชื่อผู้ดูแล');db.settings={...db.settings,title,subtitle,admin};const {error}=await supabaseClient.from('system_settings').upsert({key:'app_settings',value:db.settings,updated_by:currentUser.id});if(error)return toast(error.message);document.getElementById('userName').textContent=currentProfile.full_name||currentProfile.email;applySettings();toast('บันทึกข้อมูลเว็บไซต์เรียบร้อย')}
+function previewSettingImage(event,type){let file=event.target.files[0];if(!file)return;if(file.size>1.5*1024*1024){toast('กรุณาเลือกรูปภาพขนาดไม่เกิน 1.5 MB');event.target.value='';return}let reader=new FileReader();reader.onload=()=>{let id=type==='logo'?'settingLogoPreview':'settingBannerPreview';document.getElementById(id).src=reader.result;document.getElementById(id).style.display='block';if(type==='logo')pendingLogo=reader.result;else pendingBanner=reader.result};reader.readAsDataURL(file)}
+function clearSettingImage(type){if(type==='logo'){pendingLogo='';settingLogoPreview.removeAttribute('src');settingLogoPreview.style.display='none';settingLogoFile.value=''}else{pendingBanner='';settingBannerPreview.removeAttribute('src');settingBannerPreview.style.display='none';settingBannerFile.value=''}}
+async function saveAppearanceSettings(){if(role!=='admin')return toast('เฉพาะผู้ดูแลระบบเท่านั้น');db.settings={...db.settings,color:settingColor.value,contact:settingContact.value.trim(),phone:settingPhone.value.trim(),location:settingLocation.value.trim(),welcome:settingWelcome.value.trim(),footer:settingFooter.value.trim()};if(pendingLogo!==null)db.settings.logo=pendingLogo;if(pendingBanner!==null)db.settings.banner=pendingBanner;const {error}=await supabaseClient.from('system_settings').upsert({key:'app_settings',value:db.settings,updated_by:currentUser.id});if(error)return toast(error.message);pendingLogo=null;pendingBanner=null;applySettings();toast('บันทึกการปรับแต่งเว็บไซต์แล้ว')}
+async function backupData(){if(role!=='admin')return;const blob=new Blob([JSON.stringify({settings:db.settings,items:db.items,loans:db.loans,reports:db.reports},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='backup-คลังอุปกรณ์กีฬา-'+dateNow()+'.json';a.click();URL.revokeObjectURL(a.href);toast('ดาวน์โหลดข้อมูลจากฐานข้อมูลแล้ว')}
+function restoreData(){toast('การนำเข้าไฟล์สำรองยังไม่เปิดใช้ในรุ่นเชื่อมต่อฐานข้อมูล กรุณาติดต่อผู้ดูแลระบบ')}
+function statusItem(i){if(i.total>0&&i.lost>=i.total)return 'สูญหาย';if(i.available>0)return 'พร้อมใช้งาน';if(i.damaged>0)return 'ชำรุด';return 'กำลังถูกยืม'}
+function pill(s){let c=s==='พร้อมใช้งาน'||s==='คืนแล้ว'||s==='approved'?'available':s==='กำลังถูกยืม'||s==='pending'?'borrowed':s==='เกินกำหนด'?'overdue':s==='สูญหาย'||s==='rejected'?'lost':'repair';return `<span class="pill ${c}">${esc(s)}</span>`}
+function refresh(){renderDashboard();renderInventory();renderReturns();renderHistory();renderReports();fillSelects();if(role==='admin'&&document.getElementById('settings').classList.contains('active'))fillSettings()}
+function renderDashboard(){let total=db.items.reduce((a,i)=>a+i.total,0),avail=db.items.reduce((a,i)=>a+i.available,0),borrow=db.loans.filter(l=>l.status==='approved'&&!l.returned).reduce((a,l)=>a+l.qty,0),over=db.loans.filter(l=>l.status==='approved'&&!l.returned&&l.due<dateNow()).length,lost=db.items.reduce((a,i)=>a+i.lost,0);totalCount.textContent=total;availableCount.textContent=avail;borrowedCount.textContent=borrow;alertCount.textContent=over+lost;let active=[...db.loans].slice(0,6);recentRows.innerHTML=active.length?active.map(l=>`<tr><td>${esc(l.name)}</td><td>${esc(l.itemName)} × ${l.qty}</td><td>${fmt(l.due)}</td><td>${pill(l.status==='pending'?'รออนุมัติ':l.returned?'คืนแล้ว':l.due<dateNow()?'เกินกำหนด':'กำลังถูกยืม')}</td></tr>`).join(''):'<tr><td colspan="4" class="empty">ยังไม่มีรายการยืม</td></tr>';let overdueLoans=db.loans.filter(l=>l.status==='approved'&&!l.returned&&l.due<dateNow());let alertBox=document.getElementById('alerts');alertBox.innerHTML=overdueLoans.length?overdueLoans.map(l=>`<p class="small">⚠️ <b>${esc(l.name)}</b> – ${esc(l.itemName)} (เกินกำหนด)</p>`).join(''):'<div class="empty">ไม่มีรายการเกินกำหนด ✓</div>';if(lost)alertBox.innerHTML+=`<p class="small">⚑ มีอุปกรณ์สูญหาย ${lost} ชิ้น</p>`}
+function renderInventory(){if(!inventoryRows)return;let q=(inventorySearch?.value||'').toLowerCase(),f=inventoryFilter?.value||'';let arr=db.items.filter(i=>(i.name+i.id+i.category).toLowerCase().includes(q)&&(!f||statusItem(i)===f));inventoryRows.innerHTML=arr.length?arr.map(i=>`<tr><td><b>${esc(i.id)}</b></td><td>${esc(i.name)}</td><td>${esc(i.category)}</td><td><div class="inventory-counts"><span class="count-tag">ทั้งหมด ${i.total}</span><span class="count-tag good">ใช้ได้ ${i.total-i.damaged-i.lost}</span><span class="count-tag good">ว่าง ${i.available}</span><span class="count-tag warn">ยืมอยู่ ${db.loans.filter(l=>l.itemDbId===i.dbId&&l.status==='approved'&&!l.returned).reduce((a,l)=>a+l.qty,0)}</span></div><div class="muted small">ชำรุด ${i.damaged} · สูญหาย ${i.lost}</div></td><td>${pill(statusItem(i))}</td><td><div class="actions"><button class="secondary" onclick="showQR('${esc(i.id)}')">QR</button>${role==='admin'?`<button class="secondary" onclick="editItem('${esc(i.id)}')">แก้ไข</button><button class="danger" onclick="deleteItem('${esc(i.id)}')">ลบ</button>`:''}</div></td></tr>`).join(''):'<tr><td colspan="6" class="empty">ไม่พบข้อมูลอุปกรณ์</td></tr>'}
+function fillSelects(){let opts=db.items.filter(i=>i.available>0).map(i=>`<option value="${esc(i.dbId)}">${esc(i.name)} (ว่าง ${i.available})</option>`).join('');if(bItem)bItem.innerHTML=opts||'<option value="">ไม่มีอุปกรณ์พร้อมยืม</option>';if(rItem)rItem.innerHTML=db.items.map(i=>`<option value="${esc(i.dbId)}">${esc(i.name)}</option>`).join('')}
+async function submitBorrow(){let name=bName.value.trim(),code=bCode.value.trim(),id=bItem.value,qty=Number(bQty.value),due=bDue.value,item=db.items.find(i=>i.dbId===id),faculty=bFaculty.value.trim(),major=bMajor.value.trim(),year=bYear.value;if(!name||!code||!item||!due||qty<1||!faculty||!major||!year)return toast('กรุณากรอกชื่อ รหัส คณะ สาขา ชั้นปี และข้อมูลที่จำเป็นให้ครบ');if(due<dateNow())return toast('วันคืนต้องไม่เป็นวันย้อนหลัง');if(qty>item.available)return toast('จำนวนอุปกรณ์ไม่เพียงพอ');const {error}=await supabaseClient.rpc('create_borrow_request',{p_borrower_name:name,p_borrower_code:code,p_borrower_phone:bPhone.value.trim(),p_affiliation:bAffiliation.value.trim(),p_faculty:faculty,p_major:major,p_study_year:year,p_purpose:bPurpose.value.trim(),p_expected_return_date:due,p_items:[{equipment_id:id,quantity:qty}]});if(error)return toast(error.message);['bName','bCode','bPhone','bAffiliation','bFaculty','bMajor','bPurpose'].forEach(x=>document.getElementById(x).value='');bYear.value='';bQty.value=1;await loadData();toast('ส่งคำขอยืมเรียบร้อย กรุณารอ Admin อนุมัติ')}
+function renderReturns(){if(!returnRows)return;let q=(returnSearch?.value||'').toLowerCase(),pending=db.loans.filter(l=>l.status==='pending');if(role!=='admin')pending=[];pendingRows.innerHTML=pending.length?pending.map(l=>`<tr><td>${esc(l.name)}<div class="muted small">${esc(l.code)}</div></td><td>${esc(l.itemName)}</td><td>${l.qty}</td><td>${fmt(l.due)}</td><td>${esc(l.purpose||'-')}</td><td><div class="actions"><button class="success" onclick="approveRequest('${l.id}')">อนุมัติ</button><button class="danger" onclick="rejectRequest('${l.id}')">ปฏิเสธ</button></div></td></tr>`).join(''):'<tr><td colspan="6" class="empty">ไม่มีคำขอรออนุมัติ</td></tr>';let arr=db.loans.filter(l=>l.status==='approved'&&!l.returned&&(l.name+l.code+l.itemName).toLowerCase().includes(q));if(role!=='admin')arr=[];returnRows.innerHTML=arr.length?arr.map(l=>`<tr><td>${esc(l.name)}<div class="muted small">${esc(l.code)}</div><div class="muted small">${esc(l.faculty||'-')} · ${esc(l.major||'-')} · ${esc(l.year||'-')}</div></td><td>${esc(l.itemName)}</td><td>${l.qty}</td><td>${fmt(l.due)}</td><td>${pill(l.due<dateNow()?'เกินกำหนด':'กำลังถูกยืม')}</td><td><button class="success" onclick="returnLoan('${l.itemRowId}')">บันทึกคืน</button></td></tr>`).join(''):'<tr><td colspan="6" class="empty">ไม่มีรายการค้างคืน</td></tr>'}
+async function approveRequest(id){if(role!=='admin')return;const {error}=await supabaseClient.rpc('approve_borrow_request',{p_request_id:id,p_admin_note:null});if(error)return toast(error.message);await loadData();toast('อนุมัติคำขอยืมแล้ว')}
+async function rejectRequest(id){if(role!=='admin')return;const note=prompt('เหตุผลที่ปฏิเสธ (ไม่บังคับ)','');if(note===null)return;const {error}=await supabaseClient.rpc('reject_borrow_request',{p_request_id:id,p_admin_note:note||null});if(error)return toast(error.message);await loadData();toast('ปฏิเสธคำขอยืมแล้ว')}
+async function returnLoan(itemRowId){if(role!=='admin')return;let l=db.loans.find(x=>x.itemRowId===itemRowId);if(!l)return;let condition=prompt('จำนวนที่รับคืนสภาพปกติ',''+l.qty);if(condition===null)return;let good=Number(condition);if(!Number.isInteger(good)||good<0||good>l.qty)return toast('จำนวนไม่ถูกต้อง');let damaged=Number(prompt('จำนวนชำรุด',String(l.qty-good))||0),lost=Number(prompt('จำนวนสูญหาย',String(l.qty-good-damaged))||0);if(damaged<0||lost<0||good+damaged+lost!==l.qty)return toast('ยอดรับคืนรวมต้องเท่ากับจำนวนที่ยืม');const {error}=await supabaseClient.rpc('process_equipment_return',{p_request_item_id:itemRowId,p_good:good,p_damaged:damaged,p_lost:lost,p_note:'บันทึกการรับคืนจากหน้าเว็บ'});if(error)return toast(error.message);await loadData();toast('บันทึกการคืนเรียบร้อย')}
+function renderHistory(){if(!historyRows)return;let q=(historySearch?.value||'').toLowerCase(),arr=[...db.loans].filter(l=>(l.name+l.code+l.itemName).toLowerCase().includes(q));if(role!=='admin')arr=arr.filter(l=>l.id);historyRows.innerHTML=arr.length?arr.map(l=>`<tr><td>${fmt(l.created)}</td><td>${esc(l.name)}<div class="muted small">${esc(l.code)}</div><div class="muted small">${esc(l.faculty||'-')} · ${esc(l.major||'-')} · ${esc(l.year||'-')}</div></td><td>${esc(l.itemName)}</td><td>${l.qty}</td><td>${fmt(l.due)}</td><td>${fmt(l.returnDate)}</td><td>${pill(l.status==='pending'?'รออนุมัติ':l.status==='rejected'?'ปฏิเสธ':l.returned?'คืนแล้ว':l.due<dateNow()?'เกินกำหนด':'กำลังถูกยืม')}</td></tr>`).join(''):'<tr><td colspan="8" class="empty">ยังไม่มีประวัติ</td></tr>'}
+async function submitReport(){let equipment_id=rItem.value,type=rType.value==='สูญหาย'?'lost':'damaged',details=rDetail.value.trim();if(!equipment_id||!details)return toast('กรุณาเลือกรายการและกรอกรายละเอียด');const {error}=await supabaseClient.from('equipment_reports').insert({user_id:currentUser.id,equipment_id,report_type:type,details});if(error)return toast(error.message);rDetail.value='';await loadData();toast('ส่งรายงานเรียบร้อย')}
+function renderReports(){if(!reportRows)return;reportRows.innerHTML=db.reports.length?[...db.reports].map(r=>`<tr><td>${fmt(r.date)}</td><td>${esc(r.item)}</td><td>${pill(r.type)}</td><td>${esc(r.detail)}</td><td>${esc(r.by)}</td></tr>`).join(''):'<tr><td colspan="5" class="empty">ยังไม่มีรายงานเหตุการณ์</td></tr>'}
+function openItemModal(item){if(role!=='admin')return;let editing=!!item;modal.innerHTML=`<h3>${editing?'แก้ไขอุปกรณ์':'เพิ่มอุปกรณ์ใหม่'}</h3><div class="field"><label>รหัสอุปกรณ์</label><input id="mId" value="${editing?esc(item.id):'PE-'+String(Date.now()).slice(-5)}" ${editing?'readonly':''}></div><div class="field"><label>ชื่ออุปกรณ์</label><input id="mName" value="${editing?esc(item.name):''}"></div><div class="field"><label>ประเภทกีฬา</label><input id="mCat" value="${editing?esc(item.category):''}"></div><div class="settings-grid"><div class="field"><label>จำนวนทั้งหมด</label><input id="mTotal" type="number" min="0" value="${editing?item.total:1}"></div><div class="field"><label>จำนวนพร้อมยืม</label><input id="mAvailable" type="number" min="0" value="${editing?item.available:1}"></div><div class="field"><label>จำนวนชำรุด</label><input id="mDamaged" type="number" min="0" value="${editing?item.damaged:0}"></div><div class="field"><label>จำนวนสูญหาย</label><input id="mLost" type="number" min="0" value="${editing?item.lost:0}"></div></div><div class="modal-foot"><button class="secondary" onclick="closeModal()">ยกเลิก</button><button class="primary" onclick="saveItem(${editing?'true':'false'})">บันทึก</button></div>`;modalBack.classList.add('show')}
+function editItem(id){let i=db.items.find(x=>x.id===id);if(i)openItemModal(i)}
+async function saveItem(edit){let code=mId.value.trim(),name=mName.value.trim(),cat=mCat.value.trim(),total=Number(mTotal.value),available=Number(mAvailable.value),damaged=Number(mDamaged.value),lost=Number(mLost.value);if(!code||!name||!cat||![total,available,damaged,lost].every(Number.isInteger)||[total,available,damaged,lost].some(x=>x<0)||total<available+damaged+lost)return toast('จำนวนทั้งหมดต้องไม่น้อยกว่าจำนวนพร้อมใช้ + ชำรุด + สูญหาย');let payload={asset_code:code,name,category:cat,total_quantity:total,available_quantity:available,damaged_quantity:damaged,lost_quantity:lost};let res;if(edit){let i=db.items.find(x=>x.id===code);res=await supabaseClient.from('equipment_items').update(payload).eq('id',i.dbId)}else{res=await supabaseClient.from('equipment_items').insert(payload)}if(res.error)return toast(res.error.message);closeModal();await loadData();toast('บันทึกข้อมูลอุปกรณ์แล้ว')}
+async function deleteItem(id){let i=db.items.find(x=>x.id===id);if(!i)return;if(db.loans.some(l=>l.itemDbId===i.dbId&&l.status==='approved'&&!l.returned))return toast('ลบไม่ได้ เนื่องจากมีรายการยืมค้างอยู่');if(confirm('ยืนยันลบ '+i.name+' ?')){const {error}=await supabaseClient.from('equipment_items').update({is_active:false}).eq('id',i.dbId);if(error)return toast(error.message);await loadData();toast('นำอุปกรณ์ออกจากรายการแล้ว')}}
+function showQR(id){let i=db.items.find(x=>x.id===id);if(!i)return;let payload=encodeURIComponent(JSON.stringify({id:i.id,name:i.name,category:i.category}));modal.innerHTML=`<h3>QR Code: ${esc(i.name)}</h3><div style="text-align:center"><img class="qr" alt="QR Code" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${payload}"><p><b>${esc(i.id)}</b></p><p class="small muted">สแกนเพื่อดูรหัสและข้อมูลอุปกรณ์</p></div><div class="modal-foot"><button class="secondary" onclick="closeModal()">ปิด</button><button class="primary" onclick="window.print()">พิมพ์ QR</button></div>`;modalBack.classList.add('show')}
+function closeModal(){modalBack.classList.remove('show')}
+function exportCSV(){let rows=[['วันที่ยืม','ชื่อผู้ยืม','รหัส','สังกัด','คณะ','สาขา','ชั้นปี','อุปกรณ์','จำนวน','กำหนดคืน','วันที่คืน','สถานะ'],...db.loans.map(l=>[l.created,l.name,l.code,l.affiliation,l.faculty,l.major,l.year,l.itemName,l.qty,l.due,l.returnDate,l.status])];let csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));a.download='ประวัติยืมคืนอุปกรณ์กีฬา.csv';a.click();URL.revokeObjectURL(a.href)}
+function renderMembers(){if(role!=='admin'||!memberRows)return;let q=(memberSearch?.value||'').toLowerCase(),f=memberFilter?.value||'',arr=db.members.filter(m=>(m.email+(m.full_name||'')).toLowerCase().includes(q)&&(!f||m.approval_status===f));memberRows.innerHTML=arr.length?arr.map(m=>`<tr><td>${esc(m.full_name||'-')}</td><td>${esc(m.email)}</td><td>${m.role==='admin'?'Admin':'สมาชิก'}</td><td>${pill(({pending:'รออนุมัติ',approved:'อนุมัติแล้ว',rejected:'ปฏิเสธ',suspended:'ระงับ'})[m.approval_status]||m.approval_status)}</td><td>${fmt((m.created_at||'').slice(0,10))}</td><td><div class="actions">${m.approval_status!=='approved'?`<button class="success" onclick="updateMember('${m.id}','approved')">อนุมัติ</button>`:''}${m.approval_status!=='rejected'?`<button class="danger" onclick="updateMember('${m.id}','rejected')">ปฏิเสธ</button>`:''}${m.role!=='admin'?`<button class="secondary" onclick="updateMember('${m.id}','admin')">ตั้งเป็น Admin</button>`:''}</div></td></tr>`).join(''):'<tr><td colspan="6" class="empty">ไม่พบสมาชิก</td></tr>'}
+async function updateMember(id,action){if(role!=='admin')return;let payload={};if(action==='admin'){if(!confirm('ยืนยันให้สมาชิกคนนี้เป็น Admin?'))return;payload={role:'admin',approval_status:'approved',approved_at:new Date().toISOString(),approved_by:currentUser.id}}else{payload={approval_status:action,approved_at:action==='approved'?new Date().toISOString():null,approved_by:action==='approved'?currentUser.id:null}}const {error}=await supabaseClient.from('profiles').update(payload).eq('id',id);if(error)return toast(error.message);await loadMembers();toast('อัปเดตสิทธิ์สมาชิกแล้ว')}
+function showView(id,btn){if(role!=='admin'&&['settings','members','returns'].includes(id))return toast('ไม่มีสิทธิ์เข้าถึงหน้านี้');document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));document.getElementById('pageTitle').textContent=({dashboard:'ภาพรวมระบบ',inventory:'คลังอุปกรณ์กีฬา',borrow:'ยืมอุปกรณ์',returns:'คืนอุปกรณ์',history:'ประวัติการยืม–คืน',reports:'รายงานสูญหาย/ชำรุด',members:'จัดการสมาชิก',settings:'ตั้งค่าระบบ'})[id];if(id==='members')renderMembers();if(id==='settings')fillSettings();refresh()}
+async function init(){document.getElementById('bDue').min=dateNow();document.getElementById('bDue').value=dateNow();applySettings();const {data:{session}}=await supabaseClient.auth.getSession();if(session)await handleSession()}
+init();
+</script>
+</body>
+</html>
