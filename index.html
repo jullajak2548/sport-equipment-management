@@ -243,5 +243,129 @@ function showView(id,btn){if(role!=='admin'&&['settings','members','returns'].in
 async function init(){document.getElementById('bDue').min=dateNow();document.getElementById('bDue').value=dateNow();applySettings();const {data:{session}}=await supabaseClient.auth.getSession();if(session)await handleSession()}
 init();
 </script>
+
+<script>
+/* BORROW_RETURN_EVIDENCE_UI */
+let memberReturnRows=null;
+const _baseLoadData=loadData;
+const _baseHandleSession=handleSession;
+function evidenceTime(v){if(!v)return '-';return new Date(v).toLocaleString('th-TH',{timeZone:'Asia/Bangkok',year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
+async function loadData(){
+ await _baseLoadData();
+ const {data,error}=await supabaseClient.from('borrow_requests').select('id,borrowed_at,returned_at,borrow_evidence_path,return_evidence_path,return_evidence_uploaded_at,created_at');
+ if(error){console.error(error);return;}
+ const byId=new Map((data||[]).map(r=>[r.id,r]));
+ db.loans=db.loans.map(l=>{const r=byId.get(l.id)||{};return Object.assign({},l,{created:r.borrowed_at||r.created_at||l.created,returnDate:r.returned_at||null,borrowEvidence:r.borrow_evidence_path||'',returnEvidence:r.return_evidence_path||'',returnEvidenceAt:r.return_evidence_uploaded_at||null});});
+ if(typeof refresh==='function'){renderReturns();renderHistory();}
+}
+async function handleSession(){
+ await _baseHandleSession();
+ document.querySelectorAll('.admin-only').forEach(x=>x.classList.toggle('hidden',role!=='admin'));
+ document.querySelectorAll('.member-only').forEach(x=>x.classList.toggle('hidden',role==='admin'||!isApprovedMember));
+}
+(function setupEvidenceUI(){
+ const borrowPanel=document.querySelector('#borrow .panel');
+ if(borrowPanel&&!document.getElementById('bEvidence')){
+  const box=document.createElement('div');box.className='field';
+  box.innerHTML='<label>รูปหลักฐานก่อนรับอุปกรณ์ * (JPG, PNG หรือ WEBP ไม่เกิน 5 MB)</label><input id="bEvidence" type="file" accept="image/jpeg,image/png,image/webp">';
+  const btn=borrowPanel.querySelector('button[onclick="submitBorrow()"]');borrowPanel.insertBefore(box,btn);
+  if(btn)btn.textContent='ส่งคำขอยืมพร้อมรูปหลักฐาน';
+ }
+ const returns=document.getElementById('returns');
+ if(returns&&!document.getElementById('memberReturnPanel')){
+  const panel=document.createElement('div');panel.id='memberReturnPanel';panel.className='panel member-only hidden';
+  panel.innerHTML='<div class="panel-head"><h3>อุปกรณ์ที่ฉันกำลังยืม</h3></div><div class="table-wrap"><table><thead><tr><th>อุปกรณ์</th><th>จำนวน</th><th>กำหนดคืน</th><th>หลักฐานการคืน</th></tr></thead><tbody id="memberReturnRows"></tbody></table></div>';
+  returns.insertBefore(panel,returns.children[1]);memberReturnRows=document.getElementById('memberReturnRows');
+ }
+})();
+async function submitBorrow(){
+ if(!isApprovedMember)return toast('บัญชีของคุณยังไม่ได้รับอนุมัติ จึงยังยืมอุปกรณ์ไม่ได้');
+ const name=bName.value.trim(),code=bCode.value.trim(),id=bItem.value,qty=Number(bQty.value),due=bDue.value,item=db.items.find(i=>i.dbId===id),faculty=bFaculty.value.trim(),major=bMajor.value.trim(),year=bYear.value,file=document.getElementById('bEvidence')?.files?.[0];
+ if(!name||!code||!item||!due||qty<1||!faculty||!major||!year||!file)return toast('กรุณากรอกข้อมูลและแนบรูปหลักฐานการยืมให้ครบ');
+ if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>5*1024*1024)return toast('รูปต้องเป็น JPG, PNG หรือ WEBP และมีขนาดไม่เกิน 5 MB');
+ if(due<dateNow())return toast('วันคืนต้องไม่เป็นวันย้อนหลัง');
+ if(qty>item.available)return toast('จำนวนอุปกรณ์ไม่เพียงพอ');
+ const result=await supabaseClient.rpc('create_borrow_request',{p_borrower_name:name,p_borrower_code:code,p_borrower_phone:bPhone.value.trim(),p_affiliation:bAffiliation.value.trim(),p_faculty:faculty,p_major:major,p_study_year:year,p_purpose:bPurpose.value.trim(),p_expected_return_date:due,p_items:[{equipment_id:id,quantity:qty}]});
+ if(result.error)return toast(result.error.message);
+ const ext=file.type==='image/png'?'png':file.type==='image/webp'?'webp':'jpg';
+ const path=currentUser.id+'/'+result.data+'/borrow-'+crypto.randomUUID()+'.'+ext;
+ const uploaded=await supabaseClient.storage.from('borrow-return-evidence').upload(path,file,{contentType:file.type,upsert:false});
+ if(uploaded.error)return toast('สร้างคำขอแล้ว แต่แนบรูปไม่สำเร็จ กรุณาติดต่อ Admin: '+uploaded.error.message);
+ const saved=await supabaseClient.rpc('set_borrow_evidence_path',{p_request_id:result.data,p_path:path});
+ if(saved.error)return toast('อัปโหลดรูปแล้ว แต่บันทึกหลักฐานไม่สำเร็จ กรุณาติดต่อ Admin: '+saved.error.message);
+ ['bName','bCode','bPhone','bAffiliation','bFaculty','bMajor','bPurpose'].forEach(x=>document.getElementById(x).value='');
+ bYear.value='';bQty.value=1;document.getElementById('bEvidence').value='';
+ await loadData();toast('ส่งคำขอยืมพร้อมรูปหลักฐานเรียบร้อย กรุณารอ Admin อนุมัติ');
+}
+async function viewEvidence(path){
+ const result=await supabaseClient.storage.from('borrow-return-evidence').createSignedUrl(path,300);
+ if(result.error)return toast('เปิดรูปหลักฐานไม่สำเร็จ: '+result.error.message);
+ modal.innerHTML='<h3>รูปหลักฐาน</h3><img src="'+result.data.signedUrl+'" alt="รูปหลักฐาน" style="width:100%;max-height:65vh;object-fit:contain;border-radius:12px"><div class="modal-foot"><button class="secondary" onclick="closeModal()">ปิด</button></div>';
+ modalBack.classList.add('show');
+}
+async function uploadReturnEvidence(requestId){
+ if(!isApprovedMember)return toast('บัญชีของคุณยังไม่ได้รับอนุมัติ');
+ const file=document.getElementById('returnFile_'+requestId)?.files?.[0];
+ if(!file)return toast('กรุณาเลือกรูปหลักฐานการคืน');
+ if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>5*1024*1024)return toast('รูปต้องเป็น JPG, PNG หรือ WEBP และมีขนาดไม่เกิน 5 MB');
+ const ext=file.type==='image/png'?'png':file.type==='image/webp'?'webp':'jpg';
+ const path=currentUser.id+'/'+requestId+'/return-'+crypto.randomUUID()+'.'+ext;
+ const uploaded=await supabaseClient.storage.from('borrow-return-evidence').upload(path,file,{contentType:file.type,upsert:false});
+ if(uploaded.error)return toast('อัปโหลดรูปไม่สำเร็จ: '+uploaded.error.message);
+ const saved=await supabaseClient.rpc('submit_return_evidence',{p_request_id:requestId,p_path:path});
+ if(saved.error)return toast('อัปโหลดรูปแล้ว แต่บันทึกหลักฐานไม่สำเร็จ: '+saved.error.message);
+ await loadData();toast('ส่งรูปหลักฐานการคืนแล้ว กรุณารอ Admin ตรวจสอบ');
+}
+function renderReturns(){
+ if(!returnRows)return;
+ const q=(returnSearch?.value||'').toLowerCase();
+ if(role==='admin'){
+  const pending=db.loans.filter(l=>l.status==='pending');
+  pendingRows.innerHTML=pending.length?pending.map(l=>'<tr><td>'+esc(l.name)+'<div class="muted small">'+esc(l.code)+'</div></td><td>'+esc(l.itemName)+'</td><td>'+l.qty+'</td><td>'+fmt(l.due)+'</td><td>'+(l.borrowEvidence?'<button class="secondary" onclick="viewEvidence(\\''+esc(l.borrowEvidence)+'\\')">ดูรูป</button>':'<span class="pill overdue">ไม่มีรูป</span>')+'</td><td>'+esc(l.purpose||'-')+'</td><td><div class="actions"><button class="success" onclick="approveRequest(\\''+l.id+'\\')" '+(!l.borrowEvidence?'disabled':'')+'>อนุมัติ</button><button class="danger" onclick="rejectRequest(\\''+l.id+'\\')">ปฏิเสธ</button></div></td></tr>').join(''):'<tr><td colspan="7" class="empty">ไม่มีคำขอรออนุมัติ</td></tr>';
+  const arr=db.loans.filter(l=>l.status==='approved'&&!l.returned&&(l.name+l.code+l.itemName).toLowerCase().includes(q));
+  returnRows.innerHTML=arr.length?arr.map(l=>'<tr><td>'+esc(l.name)+'<div class="muted small">'+esc(l.code)+'</div></td><td>'+esc(l.itemName)+'</td><td>'+l.qty+'</td><td>'+fmt(l.due)+'</td><td>'+(l.returnEvidence?'<button class="secondary" onclick="viewEvidence(\\''+esc(l.returnEvidence)+'\\')">ดูรูป</button>':'<span class="pill overdue">รอสมาชิกแนบรูป</span>')+'</td><td>'+ (l.returnEvidence?'<span class="pill borrowed">รอตรวจรับคืน</span>':'<span class="pill available">กำลังถูกยืม</span>')+'</td><td>'+(l.returnEvidence?'<button class="success" onclick="returnLoan(\\''+l.itemRowId+'\\')">ยืนยันรับคืน</button>':'-')+'</td></tr>').join(''):'<tr><td colspan="7" class="empty">ไม่มีรายการค้างคืน</td></tr>';
+ }else{
+  const active=db.loans.filter(l=>l.status==='approved'&&!l.returned);
+  const grouped=new Map();
+  active.forEach(l=>{if(!grouped.has(l.id))grouped.set(l.id,[]);grouped.get(l.id).push(l);});
+  const rows=Array.from(grouped.entries());
+  memberReturnRows=document.getElementById('memberReturnRows');
+  if(memberReturnRows)memberReturnRows.innerHTML=rows.length?rows.map(([id,items])=>{
+   const first=items[0],label=items.map(x=>x.itemName+' × '+x.qty).join(', ');
+   const evidence=first.returnEvidence?'<span class="pill borrowed">ส่งรูปแล้ว</span><div class="muted small">'+evidenceTime(first.returnEvidenceAt)+' · รอ Admin ตรวจสอบ</div>':'<input type="file" id="returnFile_'+id+'" accept="image/jpeg,image/png,image/webp"><button class="primary" onclick="uploadReturnEvidence(\\''+id+'\\')">แนบรูปและแจ้งคืน</button>';
+   return '<tr><td>'+esc(label)+'</td><td>'+items.reduce((a,x)=>a+x.qty,0)+'</td><td>'+fmt(first.due)+'</td><td>'+evidence+'</td></tr>';
+  }).join(''):'<tr><td colspan="4" class="empty">ไม่มีอุปกรณ์ที่กำลังยืม</td></tr>';
+ }
+}
+async function returnLoan(itemRowId){
+ if(role!=='admin')return;
+ const l=db.loans.find(x=>x.itemRowId===itemRowId);if(!l)return;
+ if(!l.returnEvidence)return toast('สมาชิกยังไม่ได้แนบรูปหลักฐานการคืน');
+ const condition=prompt('จำนวนที่รับคืนสภาพปกติ',''+l.qty);if(condition===null)return;
+ const good=Number(condition);if(!Number.isInteger(good)||good<0||good>l.qty)return toast('จำนวนไม่ถูกต้อง');
+ const damaged=Number(prompt('จำนวนชำรุด',String(l.qty-good))||0),lost=Number(prompt('จำนวนสูญหาย',String(l.qty-good-damaged))||0);
+ if(damaged<0||lost<0||good+damaged+lost!==l.qty)return toast('ยอดรับคืนรวมต้องเท่ากับจำนวนที่ยืม');
+ const result=await supabaseClient.rpc('process_equipment_return',{p_request_item_id:itemRowId,p_good:good,p_damaged:damaged,p_lost:lost,p_note:'ตรวจสอบรูปหลักฐานการคืนแล้ว'});
+ if(result.error)return toast(result.error.message);
+ await loadData();toast('บันทึกการคืนเรียบร้อย ระบบบันทึกวัน–เวลารับคืนแล้ว');
+}
+function renderHistory(){
+ if(!historyRows)return;
+ const q=(historySearch?.value||'').toLowerCase(),arr=db.loans.filter(l=>(l.name+l.code+l.itemName).toLowerCase().includes(q));
+ historyRows.innerHTML=arr.length?arr.map(l=>'<tr><td>'+evidenceTime(l.created)+'</td><td>'+esc(l.name)+'<div class="muted small">'+esc(l.code)+'</div><div class="muted small">'+esc(l.faculty||'-')+' · '+esc(l.major||'-')+' · '+esc(l.year||'-')+'</div></td><td>'+esc(l.itemName)+'</td><td>'+l.qty+'</td><td>'+fmt(l.due)+'</td><td>'+evidenceTime(l.returnDate)+'</td><td>'+ (l.borrowEvidence?'<button class="secondary" onclick="viewEvidence(\\''+esc(l.borrowEvidence)+'\\')">รูปยืม</button>':'-')+' '+(l.returnEvidence?'<button class="secondary" onclick="viewEvidence(\\''+esc(l.returnEvidence)+'\\')">รูปคืน</button>':'')+'</td><td>'+pill(l.status==='pending'?'รออนุมัติ':l.status==='rejected'?'ปฏิเสธ':l.returned?'คืนแล้ว':l.returnEvidence?'รอตรวจรับคืน':l.due<dateNow()?'เกินกำหนด':'กำลังถูกยืม')+'</td></tr>').join(''):'<tr><td colspan="8" class="empty">ยังไม่มีประวัติ</td></tr>';
+}
+function showView(id,btn){
+ if(role!=='admin'&&['settings','members'].includes(id))return toast('ไม่มีสิทธิ์เข้าถึงหน้านี้');
+ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
+ const titles={dashboard:'ภาพรวมระบบ',inventory:'คลังอุปกรณ์กีฬา',borrow:'ยืมอุปกรณ์',returns:role==='admin'?'ตรวจสอบและรับคืนอุปกรณ์':'แจ้งคืนอุปกรณ์',history:'ประวัติการยืม–คืน',reports:'รายงานสูญหาย/ชำรุด',members:'จัดการสมาชิก',settings:'ตั้งค่าระบบ'};
+ document.getElementById('pageTitle').textContent=titles[id]||'ระบบคลังอุปกรณ์กีฬา';
+ document.querySelectorAll('#returns .admin-only').forEach(x=>x.classList.toggle('hidden',role!=='admin'));
+ document.querySelectorAll('#returns .member-only').forEach(x=>x.classList.toggle('hidden',role==='admin'||!isApprovedMember));
+ if(id==='members')renderMembers();if(id==='settings')fillSettings();refresh();
+}
+</script>
+
 </body>
 </html>
