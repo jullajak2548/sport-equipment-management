@@ -168,7 +168,7 @@ async function login(){
  if(error)return toast('เข้าสู่ระบบไม่สำเร็จ: '+error.message);
  await handleSession();
 }
-async function handleSession(){
+async function _baseHandleSessionOriginal(){
  const {data:{session}}=await supabaseClient.auth.getSession();
  if(!session){showLogin();return}
  currentUser=session.user;
@@ -189,7 +189,7 @@ async function handleSession(){
 function showLogin(){currentUser=null;currentProfile=null;role='user';isApprovedMember=false;document.getElementById('app').classList.add('hidden');document.getElementById('loginScreen').classList.remove('hidden')}
 async function logout(){await supabaseClient.auth.signOut();showLogin()}
 supabaseClient.auth.onAuthStateChange((_event,session)=>{if(session){setTimeout(()=>handleSession(),0)}else{showLogin()}});
-async function loadData(){
+async function _baseLoadDataOriginal(){
  const [itemsRes,loansRes,reportsRes,settingsRes]=await Promise.all([
   supabaseClient.from('equipment_items').select('*').eq('is_active',true).order('asset_code'),
   supabaseClient.from('borrow_requests').select('*').order('created_at',{ascending:false}),
@@ -247,8 +247,8 @@ init();
 <script>
 /* BORROW_RETURN_EVIDENCE_UI */
 let memberReturnRows=null;
-const _baseLoadData=loadData;
-const _baseHandleSession=handleSession;
+const _baseLoadData=_baseLoadDataOriginal;
+const _baseHandleSession=_baseHandleSessionOriginal;
 function evidenceTime(v){if(!v)return '-';return new Date(v).toLocaleString('th-TH',{timeZone:'Asia/Bangkok',year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
 async function loadData(){
  await _baseLoadData();
